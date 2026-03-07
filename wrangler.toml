@@ -1,0 +1,8 @@
+name = "herbaliciousbliss"
+compatibility_date = "2026-03-07"
+pages_build_output_dir = "dist/browser"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "herbaliciousbliss-db"
+database_id = "28b81e75-0581-4d86-a12e-82fb9644ef3c"
