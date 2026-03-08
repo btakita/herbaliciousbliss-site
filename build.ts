@@ -8,14 +8,14 @@ import { esmcss_esbuild_plugin_ } from 'esmcss'
 import { readdir } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import {
-	type relysjs__build_config_T,
-	relysjs__ready__wait,
-	relysjs_browser__build,
-	relysjs_server__build
-} from 'relysjs/server'
+	type rhonojs__build_config_T,
+	rhonojs__ready__wait,
+	rhonojs_browser__build,
+	rhonojs_server__build
+} from 'rhonojs/server'
 import { config__init } from './config.js'
 import tailwindcss_config from './tailwind.config.js'
-export async function build(config?:relysjs__build_config_T) {
+export async function build(config?:rhonojs__build_config_T) {
 	config__init()
 	const esmcss_esbuild_plugin = esmcss_esbuild_plugin_()
 	const rebuild_tailwind_plugin = rebuild_tailwind_plugin_({
@@ -27,7 +27,7 @@ export async function build(config?:relysjs__build_config_T) {
 	})
 	const preprocess_plugin = preprocess_plugin_()
 	await Promise.all([
-		relysjs_browser__build({
+		rhonojs_browser__build({
 			...config ?? {},
 			treeShaking: true,
 			plugins: [
@@ -36,7 +36,7 @@ export async function build(config?:relysjs__build_config_T) {
 				preprocess_plugin,
 			],
 		}),
-		relysjs_server__build({
+		rhonojs_server__build({
 			...config ?? {},
 			target: 'es2022',
 			external: await server_external_(),
@@ -47,7 +47,7 @@ export async function build(config?:relysjs__build_config_T) {
 				preprocess_plugin,
 			],
 		}),
-		relysjs__ready__wait(10_000)
+		rhonojs__ready__wait(10_000)
 	])
 }
 function server_external_() {
@@ -67,7 +67,7 @@ function server_external_() {
 if (is_entry_file_(import.meta.url, process.argv[1])) {
 	build({
 		rebuildjs: { watch: false },
-		relysjs: { app__start: false }
+		rhonojs: { app__start: false }
 	}).then(()=>process.exit(0))
 		.catch(err=>{
 			console.error(err)
