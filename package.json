@@ -40,7 +40,7 @@
 		"drizzle-orm": "^0.32.0",
 		"hono": "^4.0.0",
 		"esbuild": "^0.27.3",
-		"esbuild-plugin-object-store-asset": "^0.0.1",
+		"esbuild-plugin-object-store-asset": "^0.0.2",
 		"object-store-asset": "^0.0.1",
 		"esmcss": "^0.2.12",
 		"marked": "^13.0.2",
