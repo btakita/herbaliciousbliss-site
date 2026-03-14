@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@source "../../../../lib/ui--server--herbaliciousbliss/**/*.ts";
+@source "../../../../lib/ui--any--herbiliciousbliss/**/*.ts";
+@source "../../../../lib/ui--browser--herbaliciousbliss/**/*.ts";
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
@@ -6,6 +9,7 @@
 	--font-sans: 'Urbanist';
 	--font-serif: 'Urbanist';
 
+	--color-primary: #0597a4;
 	--color-card-indigo: #5f5786;
 	--color-card-l0-tl: #69a84f;
 	--color-card-l0-tr: #dcebd4;
