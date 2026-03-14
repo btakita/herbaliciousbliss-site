@@ -1,4 +1,5 @@
 import { preprocess } from '@ctx-core/preprocess'
+import { object_store_asset_esbuild_plugin_ } from 'esbuild-plugin-object-store-asset'
 import { rebuild_tailwind_plugin_ } from '@rebuildjs/tailwindcss'
 import cssnano from 'cssnano'
 import { import_meta_env_ } from 'ctx-core/env'
@@ -23,12 +24,17 @@ export async function build(config?:rhonojs__build_config_T) {
 			cssnano({ preset: 'default' })
 		],
 	})
+	const object_store_asset = object_store_asset_esbuild_plugin_({
+		asset_base_url: import_meta_env_().ASSET_BASE_URL,
+		base_path: import_meta_env_().ASSET_BASE_PATH,
+	})
 	const preprocess_plugin = preprocess_plugin_()
 	await Promise.all([
 		rhonojs_browser__build({
 			...config ?? {},
 			treeShaking: true,
 			plugins: [
+				object_store_asset,
 				esmcss_esbuild_plugin,
 				rebuild_tailwind_plugin,
 				preprocess_plugin,
@@ -40,6 +46,7 @@ export async function build(config?:rhonojs__build_config_T) {
 			external: await server_external_(),
 			treeShaking: true,
 			plugins: [
+				object_store_asset,
 				esmcss_esbuild_plugin,
 				rebuild_tailwind_plugin,
 				preprocess_plugin,
