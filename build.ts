@@ -33,6 +33,7 @@ export async function build(config?:rhonojs__build_config_T) {
 		rhonojs_browser__build({
 			...config ?? {},
 			treeShaking: true,
+			conditions: ['style'],
 			plugins: [
 				object_store_asset,
 				esmcss_esbuild_plugin,
@@ -45,6 +46,7 @@ export async function build(config?:rhonojs__build_config_T) {
 			target: 'es2022',
 			external: await server_external_(),
 			treeShaking: true,
+			conditions: ['style'],
 			plugins: [
 				object_store_asset,
 				esmcss_esbuild_plugin,

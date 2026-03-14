@@ -20,6 +20,7 @@
 		"@ctx-core/source-map": "^0.2.110",
 		"@btakita/domain--server--herbaliciousbliss": "workspace:*",
 		"@btakita/ui--any--herbaliciousbliss": "workspace:*",
+		"@btakita/ui--browser--herbaliciousbliss": "workspace:*",
 		"@btakita/ui--server--herbaliciousbliss": "workspace:*",
 		"@rappstack/domain--any--blog": "^0.1.0",
 		"@rappstack/domain--server": "^0.1.0",
