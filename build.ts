@@ -29,7 +29,7 @@ export async function build(config?:rhonojs__build_config_T) {
 		base_path: import_meta_env_().ASSET_BASE_PATH,
 	})
 	const preprocess_plugin = preprocess_plugin_()
-	await Promise.all([
+	const build_promises:Promise<unknown>[] = [
 		rhonojs_browser__build({
 			...config ?? {},
 			treeShaking: true,
@@ -52,8 +52,11 @@ export async function build(config?:rhonojs__build_config_T) {
 				preprocess_plugin,
 			],
 		}),
-		rhonojs__ready__wait(10_000)
-	])
+	]
+	if (config?.rebuildjs?.watch !== false) {
+		build_promises.push(rhonojs__ready__wait(10_000))
+	}
+	await Promise.all(build_promises)
 }
 function server_external_() {
 	return readdir(join(
