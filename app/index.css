@@ -1,3 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@theme {
+	--font-sans: 'Urbanist';
+	--font-serif: 'Urbanist';
+
+	--color-card-indigo: #5f5786;
+	--color-card-l0-tl: #69a84f;
+	--color-card-l0-tr: #dcebd4;
+	--color-card-l0-br: #d1e5ca;
+	--color-card-l0-bl: #0597a4;
+	--color-card-r0-tl: #3c482c;
+	--color-card-r0-tr: #3c482c;
+	--color-card-r0-br: #0597a4;
+	--color-card-r0-bl: #9fc076;
+}

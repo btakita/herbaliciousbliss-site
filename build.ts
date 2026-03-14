@@ -14,12 +14,10 @@ import {
 	rhonojs_server__build
 } from 'rhonojs/server'
 import { config__init } from './config.js'
-import tailwindcss_config from './tailwind.config.js'
 export async function build(config?:rhonojs__build_config_T) {
 	config__init()
 	const esmcss_esbuild_plugin = esmcss_esbuild_plugin_()
 	const rebuild_tailwind_plugin = rebuild_tailwind_plugin_({
-		tailwindcss_config,
 		postcss_plugin_a1_: tailwindcss_plugin=>[
 			tailwindcss_plugin,
 			cssnano({ preset: 'default' })
