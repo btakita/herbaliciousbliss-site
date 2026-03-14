@@ -1,4 +1,7 @@
 import './index.css'
+import { relement__use } from 'relementjs'
+import { server__relement } from 'relementjs/server'
+relement__use(server__relement)
 import { home__doc_html_ } from '@btakita/ui--server--herbaliciousbliss/home'
 import { csrf_403_response_, person__wait, session_headers__wait } from '@rappstack/domain--server--auth/auth'
 import { login_google__GET, login_google_callback__GET } from '@rappstack/domain--server--auth/google'
