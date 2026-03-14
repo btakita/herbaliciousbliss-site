@@ -8,6 +8,7 @@ const { exported, errors } = await static_export_({
 	base_url: process.env.PRERENDER_BASE || 'http://localhost:4102',
 	site_url: 'https://hb.briantakita.me',
 	out_dir: 'dist/browser',
+	routes: ['/', '/lyra'],
 	sitemap: true,
 })
 console.info(`Exported ${exported.length} files`)

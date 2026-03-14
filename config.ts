@@ -1,7 +1,4 @@
 // Place any global data in this file.
-import { person_tbl__set, session_tbl__set } from '@btakita/domain--server--herbaliciousbliss/auth'
-import { herbaliciousbliss_server_env_ } from '@btakita/domain--server--herbaliciousbliss/env'
-import { person_tbl, session_tbl } from '@btakita/domain--server--herbaliciousbliss/schema'
 import {
 	bootstrap_substack_,
 	fa_facebook_,
@@ -9,10 +6,7 @@ import {
 	fa_linkedin_,
 	fa_x_twitter_
 } from '@btakita/ui--any--herbaliciousbliss/icon'
-import { auth_google_id__set, auth_google_secret__set } from '@rappstack/domain--server--auth/google'
 import { type author_T, type site_T } from '@rappstack/domain--server/site'
-import { sqlite_db__set } from '@rappstack/domain--server/sqlite'
-import Database from 'bun:sqlite'
 import { url__join } from 'ctx-core/all'
 import { import_meta_env_ } from 'ctx-core/env'
 import { class_, style_, style_url_ } from 'ctx-core/html'
@@ -102,12 +96,4 @@ export function config__init() {
 	cwd__set(app_ctx, process.cwd())
 	src_path__set(app_ctx, process.cwd())
 	relement__use(server__relement)
-	const sqlite_db = new Database('./db/app.db')
-	sqlite_db.exec('PRAGMA journal_mode = WAL;')
-	sqlite_db__set(app_ctx, sqlite_db)
-	person_tbl__set(app_ctx, person_tbl)
-	session_tbl__set(app_ctx, session_tbl)
-	const env = herbaliciousbliss_server_env_()
-	auth_google_id__set(app_ctx, env.AUTH_GOOGLE_ID)
-	auth_google_secret__set(app_ctx, env.AUTH_GOOGLE_SECRET)
 }
