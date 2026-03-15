@@ -4,6 +4,7 @@ import { rebuild_tailwind_plugin_ } from '@rebuildjs/tailwindcss'
 import cssnano from 'cssnano'
 import { import_meta_env_ } from 'ctx-core/env'
 import { is_entry_file_ } from 'ctx-core/fs'
+import { MAX_INT32 } from 'ctx-core/number'
 import { type Plugin } from 'esbuild'
 import { esmcss_esbuild_plugin_ } from 'esmcss'
 import { readdir } from 'node:fs/promises'
@@ -55,9 +56,7 @@ export async function build(config?:rhonojs__build_config_T) {
 			],
 		}),
 	]
-	if (config?.rebuildjs?.watch !== false) {
-		build_promises.push(rhonojs__ready__wait(10_000))
-	}
+	build_promises.push(rhonojs__ready__wait(MAX_INT32))
 	await Promise.all(build_promises)
 }
 async function server_external_() {
