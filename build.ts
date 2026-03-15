@@ -13,7 +13,7 @@ import {
 	type rhonojs__build_config_T,
 	rhonojs__ready__wait,
 	rhonojs_browser__build,
-	rhonojs_server__build
+	rhonojs_server__build, run
 } from 'rhonojs/server'
 import { config__init } from './config.js'
 export async function build(config?:rhonojs__build_config_T) {
@@ -30,34 +30,45 @@ export async function build(config?:rhonojs__build_config_T) {
 		base_path: import_meta_env_().ASSET_BASE_PATH,
 	})
 	const preprocess_plugin = preprocess_plugin_()
-	const build_promises:Promise<unknown>[] = [
-		rhonojs_browser__build({
-			...config ?? {},
-			treeShaking: true,
-			conditions: ['style'],
-			plugins: [
-				object_store_asset,
-				esmcss_esbuild_plugin,
-				rebuild_tailwind_plugin,
-				preprocess_plugin,
-			],
+	await Promise.all([
+		run(async ()=>{
+			try {
+				return rhonojs_browser__build({
+					...config ?? {},
+					treeShaking: true,
+					conditions: ['style'],
+					plugins: [
+						object_store_asset,
+						esmcss_esbuild_plugin,
+						rebuild_tailwind_plugin,
+						preprocess_plugin,
+					],
+				})
+			} finally {
+				console.info('rhonojs_browser__build|done')
+			}
 		}),
-		rhonojs_server__build({
-			...config ?? {},
-			target: 'es2022',
-			external: await server_external_(),
-			treeShaking: true,
-			conditions: ['style'],
-			plugins: [
-				object_store_asset,
-				esmcss_esbuild_plugin,
-				rebuild_tailwind_plugin,
-				preprocess_plugin,
-			],
+		run(async ()=>{
+			try {
+				return rhonojs_server__build({
+					...config ?? {},
+					target: 'es2022',
+					external: await server_external_(),
+					treeShaking: true,
+					conditions: ['style'],
+					plugins: [
+						object_store_asset,
+						esmcss_esbuild_plugin,
+						rebuild_tailwind_plugin,
+						preprocess_plugin,
+					],
+				})
+			} finally {
+				console.info('rhonojs_server__build|done')
+			}
 		}),
-	]
-	build_promises.push(rhonojs__ready__wait(MAX_INT32))
-	await Promise.all(build_promises)
+		rhonojs__ready__wait(MAX_INT32),
+	])
 }
 async function server_external_() {
 	const app_dir = dirname(new URL(import.meta.url).pathname)
