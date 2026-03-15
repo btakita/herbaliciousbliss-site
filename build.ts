@@ -60,19 +60,22 @@ export async function build(config?:rhonojs__build_config_T) {
 	}
 	await Promise.all(build_promises)
 }
-function server_external_() {
-	return readdir(join(
-		dirname(new URL(import.meta.url).pathname),
-		'..',
-		'..',
-		'node_modules'
-	)).then(file_a1=>[
-		...file_a1
+async function server_external_() {
+	const app_dir = dirname(new URL(import.meta.url).pathname)
+	const root_nm = join(app_dir, '..', '..', 'node_modules')
+	const local_nm = join(app_dir, 'node_modules')
+	const [root_files, local_files] = await Promise.all([
+		readdir(root_nm).catch(()=>[]),
+		readdir(local_nm).catch(()=>[]),
+	])
+	const all_files = [...new Set([...root_files, ...local_files])]
+	return [
+		...all_files
 			.filter(file=>file !== '@btakita' && file !== '@rappstack')
 			.map(file=>file[0] === '@' ? file + '/*' : file),
 		'bun',
 		'bun:*'
-	])
+	]
 }
 if (is_entry_file_(import.meta.url, process.argv[1])) {
 	build({
