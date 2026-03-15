@@ -1,4 +1,7 @@
 import '../index.css'
+import { relement__use } from 'relementjs'
+import { server__relement } from 'relementjs/server'
+relement__use(server__relement)
 import { lyra__doc_html_ } from '@btakita/ui--server--herbaliciousbliss/lyra'
 import { Hono } from 'hono'
 import { middleware_ } from 'rebuildjs/server'
